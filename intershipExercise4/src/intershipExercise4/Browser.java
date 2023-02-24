@@ -13,7 +13,7 @@ public class Browser {
 	void addUrl(String url) {
 		if(urlMap.containsKey(url)) {
 			Integer timesVisited = urlMap.get(url);
-			urlMap.put(url, timesVisited);
+			urlMap.put(url, timesVisited + 1);
 		}else {
 			urlMap.put(url, 1);
 		}
