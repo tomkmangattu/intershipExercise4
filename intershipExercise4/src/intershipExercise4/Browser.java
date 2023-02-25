@@ -1,30 +1,39 @@
 package intershipExercise4;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class Browser {
-	HashMap <String, Integer> urlMap;
+	ArrayList<String> urlList;
 	
 	Browser(){
-		urlMap = new HashMap<String, Integer>();
+		urlList = new ArrayList<>();
 	}
 	
 	void addUrl(String url) {
-		if(urlMap.containsKey(url)) {
-			Integer timesVisited = urlMap.get(url);
-			urlMap.put(url, timesVisited + 1);
-		}else {
-			urlMap.put(url, 1);
+		boolean found = false;
+		
+		for(int index = 0; index < urlList.size(); index ++) {
+			String[] urlParts = urlList.get(index).split("##");
+			String urlTxt =  urlParts[0];
+			
+			if(url.equals(urlTxt)) {
+				found = true;
+				int times = Integer.parseInt(urlParts[1]) + 1;
+				urlList.set(index, url + "##" + times);
+				break;
+			}
+		}
+		
+		if(!found) {
+			urlList.add(url + "##" + 1);
 		}
 		
 		displayHistory();
 	}
 	
 	void displayHistory() {
-		for(Map.Entry<String, Integer> urlEntry: urlMap.entrySet()) {
-			String urlWithNumber = urlEntry.getKey() + "##"+ urlEntry.getValue();
-			System.out.println(urlWithNumber);
+		for(String url : urlList) {
+			System.out.println(url);
 		}
 	}
 }
